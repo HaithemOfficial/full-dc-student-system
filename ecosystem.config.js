@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'elnadjah-api',
-      script: './backend/server.js',
+      script: './server.js',
       cwd: '/var/www/el-nadjah-apps/backend',
       instances: 1,
       autorestart: true,
