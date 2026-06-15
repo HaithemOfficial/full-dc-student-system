@@ -38,6 +38,7 @@ const authByPhone = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: (req) => req.body?.phone || req.ip,
+  validate: { keyGeneratorIpFallback: false },
   handler,
 });
 
