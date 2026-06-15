@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#4f46e5"/>
+  <!-- Book pages -->
+  <rect x="140" y="148" width="232" height="216" rx="12" fill="white" opacity="0.15"/>
+  <!-- Open book spine -->
+  <rect x="248" y="148" width="16" height="216" rx="4" fill="white" opacity="0.25"/>
+  <!-- Left page lines -->
+  <rect x="164" y="188" width="68" height="10" rx="5" fill="white" opacity="0.9"/>
+  <rect x="164" y="212" width="68" height="10" rx="5" fill="white" opacity="0.9"/>
+  <rect x="164" y="236" width="68" height="10" rx="5" fill="white" opacity="0.9"/>
+  <rect x="164" y="260" width="52" height="10" rx="5" fill="white" opacity="0.9"/>
+  <!-- Right page lines -->
+  <rect x="280" y="188" width="68" height="10" rx="5" fill="white" opacity="0.9"/>
+  <rect x="280" y="212" width="68" height="10" rx="5" fill="white" opacity="0.9"/>
+  <rect x="280" y="236" width="68" height="10" rx="5" fill="white" opacity="0.9"/>
+  <rect x="280" y="260" width="52" height="10" rx="5" fill="white" opacity="0.9"/>
+  <!-- N letter overlay -->
+  <path d="M176 308 L176 204 L198 204 L256 278 L256 204 L278 204 L278 308 L256 308 L198 234 L198 308 Z" fill="white"/>
+</svg>
