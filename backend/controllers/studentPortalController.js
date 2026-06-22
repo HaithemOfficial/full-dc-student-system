@@ -22,7 +22,7 @@ exports.getMe = async (req, res) => {
   const student = await Student.findById(req.student._id)
     .select('firstName lastName phone destinationName currentStageName currentStageId destination assignedTo')
     .populate('destination', 'name code flag')
-    .populate('assignedTo', 'name')  // name only — never expose agent phone to student
+    .populate('assignedTo', 'name phone')
     .lean();
   res.json({ ...student, onboardingCompleted: req.studentAccount?.onboardingCompleted ?? false });
 };

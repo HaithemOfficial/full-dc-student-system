@@ -174,7 +174,7 @@ export default function Progress() {
           <div className="relative">
             <div className="absolute start-5 top-5 bottom-5 w-0.5 bg-gray-200" style={{ left: '20px' }} />
             <div className="space-y-3">
-              {(data.stages || []).map(stage => {
+              {(data.stages || []).filter(s => s.status !== 'upcoming').map(stage => {
                 const isStopped = data.applicationStopped && stage.status !== 'completed';
                 const isCompleted = stage.status === 'completed';
                 const isCurrent = !isStopped && stage.status === 'current';

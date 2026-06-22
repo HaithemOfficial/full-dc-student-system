@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, ChevronUp, Lock, ArrowRight } from 'lucide-react';
+import { ChevronDown, ChevronUp, Lock, ArrowRight, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useFetch } from '../../hooks/useFetch';
 import { SkeletonList } from '../../components/ui/SkeletonCard';
