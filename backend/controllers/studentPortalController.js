@@ -135,7 +135,7 @@ exports.getProgress = async (req, res) => {
   // (e.g. hide visa stages when student is still in uni_acceptance phase)
   const currentCategory = currentStage?.category || null;
   const visibleStages = currentCategory
-    ? progressData.filter(s => s.category === currentCategory)
+    ? progressData.filter(s => (s.category || 'uni_acceptance') === currentCategory)
     : progressData;
 
   const visibleCurrentIndex = visibleStages.findIndex(
