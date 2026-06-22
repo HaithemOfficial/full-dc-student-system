@@ -27,7 +27,7 @@ export default function TopBar() {
   const isSubPage = BACK_ROUTES.some(r => location.pathname.startsWith(r));
 
   return (
-    <header className="fixed top-0 inset-x-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+    <header className="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
       <div className="flex items-center h-14 px-4 max-w-lg mx-auto gap-3">
 
         {/* Left: back button on sub-pages, logo on top-level */}

@@ -12,7 +12,7 @@ export default function BottomNav() {
   const location = useLocation();
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-40 px-4 pb-4 pt-2 pointer-events-none">
+    <nav className="fixed bottom-0 inset-x-0 z-50 px-4 pb-4 pt-2 pointer-events-none">
       <div className="max-w-lg mx-auto pointer-events-auto bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.10)] border border-gray-100 flex items-center px-2 py-1.5">
         {TABS.map(({ to, icon: Icon, label }) => {
           const isActive = to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);

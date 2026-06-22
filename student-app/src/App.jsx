@@ -19,10 +19,10 @@ import VideoExamples from './pages/tools/VideoExamples';
 import CommonMistakes from './pages/tools/CommonMistakes';
 import GuidesHub from './pages/tools/GuidesHub';
 import FAQPage from './pages/tools/FAQPage';
-import Guides from './pages/tools/Guides';
 import Checklists from './pages/tools/Checklists';
 import BottomNav from './components/BottomNav';
 import TopBar from './components/TopBar';
+import ContentGuard from './components/ContentGuard';
 
 function MaintenanceScreen({ message }) {
   return (
@@ -79,20 +79,19 @@ function ProtectedLayout() {
       <main className="flex-1 overflow-y-auto pt-14 pb-28">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/progress" element={<Progress />} />
-          <Route path="/payments" element={<Payments />} />
+          <Route path="/progress" element={<ContentGuard><Progress /></ContentGuard>} />
+          <Route path="/payments" element={<ContentGuard><Payments /></ContentGuard>} />
           <Route path="/deadlines" element={<Deadlines />} />
           <Route path="/notifications" element={<Notifications />} />
-          <Route path="/documents" element={<Documents />} />
+          <Route path="/documents" element={<ContentGuard><Documents /></ContentGuard>} />
           <Route path="/tools" element={<Tools />} />
           <Route path="/tools/interview-prep" element={<InterviewPrepHub />} />
-          <Route path="/tools/interview-prep/questions" element={<InterviewPrep />} />
-          <Route path="/tools/interview-prep/videos" element={<VideoExamples />} />
-          <Route path="/tools/interview-prep/mistakes" element={<CommonMistakes />} />
-          <Route path="/tools/guides" element={<GuidesHub />} />
-          <Route path="/tools/faq" element={<FAQPage />} />
-          <Route path="/tools/guides/legacy" element={<Guides />} />
-          <Route path="/tools/checklists" element={<Checklists />} />
+          <Route path="/tools/interview-prep/questions" element={<ContentGuard><InterviewPrep /></ContentGuard>} />
+          <Route path="/tools/interview-prep/videos" element={<ContentGuard><VideoExamples /></ContentGuard>} />
+          <Route path="/tools/interview-prep/mistakes" element={<ContentGuard><CommonMistakes /></ContentGuard>} />
+          <Route path="/tools/guides" element={<ContentGuard><GuidesHub /></ContentGuard>} />
+          <Route path="/tools/faq" element={<ContentGuard><FAQPage /></ContentGuard>} />
+          <Route path="/tools/checklists" element={<ContentGuard><Checklists /></ContentGuard>} />
           <Route path="/referral" element={<Referral />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="*" element={<Navigate to="/" replace />} />
