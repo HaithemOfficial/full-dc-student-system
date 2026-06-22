@@ -125,23 +125,39 @@ exports.getProgress = async (req, res) => {
       studentTips: stage.studentTips || [],
       status,
       stageChecklist,
+      category: stage.category,
       enteredAt: historyEntry?.enteredAt,
       exitedAt: historyEntry?.exitedAt,
     };
   });
 
+  // Only show stages from the same category as the current stage
+  // (e.g. hide visa stages when student is still in uni_acceptance phase)
+  const currentCategory = currentStage?.category || null;
+  const visibleStages = currentCategory
+    ? progressData.filter(s => s.category === currentCategory)
+    : progressData;
+
+  const visibleCurrentIndex = visibleStages.findIndex(
+    s => String(s._id) === String(student.currentStageId)
+  );
+
+  const visibleEstimatedRemaining = visibleStages
+    .slice(visibleCurrentIndex >= 0 ? visibleCurrentIndex : visibleStages.length)
+    .reduce((sum, s) => sum + (s.estimatedDays || 0), 0);
+
   res.json({
-    stages: progressData,
+    stages: visibleStages,
     currentStageId: student.currentStageId,
     currentStageName: student.currentStageName,
     currentStageDescription: currentStage?.description || '',
-    currentIndex,
-    totalStages: stages.length,
-    progressPercent: stages.length > 0
-      ? Math.round(((currentIndex + 1) / stages.length) * 100)
+    currentIndex: visibleCurrentIndex,
+    totalStages: visibleStages.length,
+    progressPercent: visibleStages.length > 0
+      ? Math.round(((visibleCurrentIndex + 1) / visibleStages.length) * 100)
       : 0,
     estimatedDays: currentStage?.estimatedDays || null,
-    estimatedRemaining,
+    estimatedRemaining: visibleEstimatedRemaining,
     studentChecklist,
     celebration,
     destinationName: student.destination?.name || '',
