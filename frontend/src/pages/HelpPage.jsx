@@ -88,7 +88,7 @@ function Badge({ color = 'brand', children }) {
 
 function Card({ children, className = '' }) {
   return (
-    <div className={`bg-white border border-gray-100 rounded-xl p-5 shadow-sm mb-5 ${className}`}>
+    <div className={`bg-white border border-gray-100 rounded-xl p-4 sm:p-5 shadow-sm mb-5 ${className}`}>
       {children}
     </div>
   );
@@ -139,8 +139,8 @@ export default function HelpPage() {
         </div>
       </div>
 
-      {/* Left nav (hidden on print) */}
-      <nav className="no-print w-52 shrink-0 sticky top-6 self-start">
+      {/* Left nav — desktop only (hidden on print) */}
+      <nav className="no-print hidden sm:block w-52 shrink-0 sticky top-6 self-start">
         <div className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm space-y-0.5">
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-2 pb-2">Contents</p>
           {SECTIONS.map(s => (
@@ -166,20 +166,36 @@ export default function HelpPage() {
       </nav>
 
       {/* Main content */}
-      <div className="flex-1 min-w-0 space-y-8 pb-16">
+      <div className="flex-1 min-w-0 space-y-6 sm:space-y-8 pb-16">
 
         {/* Page header */}
-        <div className="flex items-start justify-between no-print">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Agent Guide</h1>
-            <p className="text-sm text-gray-400 mt-0.5">Everything you need to use the DC System effectively</p>
+        <div className="no-print space-y-3">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Agent Guide</h1>
+              <p className="text-sm text-gray-400 mt-0.5">Everything you need to use the DC System effectively</p>
+            </div>
+            <button
+              onClick={() => window.print()}
+              className="flex items-center gap-2 btn-secondary text-sm shrink-0"
+            >
+              <Printer className="w-4 h-4" /><span className="hidden sm:inline">Save as PDF</span>
+            </button>
           </div>
-          <button
-            onClick={() => window.print()}
-            className="flex items-center gap-2 btn-secondary text-sm"
-          >
-            <Printer className="w-4 h-4" /> Save as PDF
-          </button>
+
+          {/* Mobile jump-to select */}
+          <div className="sm:hidden">
+            <select
+              className="input text-sm w-full"
+              defaultValue=""
+              onChange={e => { if (e.target.value) { scrollTo(e.target.value); e.target.value = ''; } }}
+            >
+              <option value="" disabled>Jump to section…</option>
+              {SECTIONS.map(s => (
+                <option key={s.id} value={s.id}>{s.label}</option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* ── OVERVIEW ── */}
