@@ -94,20 +94,20 @@ export default function AgentDashboard() {
     .slice(0, 5);
 
   return (
-    <div className="space-y-6 max-w-4xl">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
+    <div className="space-y-5 max-w-4xl">
+      <div className="space-y-3">
+        <div>
           <h2 className="text-xl font-bold text-gray-900">Good {getGreeting()}, {user?.name?.split(' ')[0]}</h2>
           <p className="text-sm text-gray-500 mt-0.5">Here's what needs your attention today</p>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <button onClick={() => setShowItemForm(true)} className="btn-secondary text-sm">+ New Item</button>
-          <Link to="/students/new" className="btn-primary text-sm">+ Add Student</Link>
+        <div className="flex gap-2">
+          <button onClick={() => setShowItemForm(true)} className="btn-secondary text-sm flex-1 sm:flex-none justify-center">+ New Item</button>
+          <Link to="/students/new" className="btn-primary text-sm flex-1 sm:flex-none justify-center text-center">+ Add Student</Link>
         </div>
       </div>
 
       {/* Summary cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         <Link to="/students" className="card p-4 text-center hover:shadow-md transition-shadow">
           <div className="w-9 h-9 bg-brand-100 rounded-xl flex items-center justify-center mx-auto mb-2">
             <GraduationCap className="w-5 h-5 text-brand-600" />
@@ -129,15 +129,15 @@ export default function AgentDashboard() {
 
       {/* Notifications */}
       {notifications.length > 0 && (
-        <div className="card p-5">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <Bell className="w-4 h-4 text-brand-600" />
+        <div className="card p-4 sm:p-5">
+          <div className="flex items-center justify-between mb-3 gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <Bell className="w-4 h-4 text-brand-600 shrink-0" />
               <h3 className="font-semibold text-gray-900 text-sm">Notifications</h3>
-              {unreadCount > 0 && <span className="badge bg-red-100 text-red-700">{unreadCount} unread</span>}
+              {unreadCount > 0 && <span className="badge bg-red-100 text-red-700 shrink-0">{unreadCount} unread</span>}
             </div>
-            <Link to="/notifications" className="text-xs text-brand-600 hover:underline flex items-center gap-1">
-              All notifications <ArrowRight className="w-3 h-3" />
+            <Link to="/notifications" className="text-xs text-brand-600 hover:underline flex items-center gap-1 shrink-0">
+              All <ArrowRight className="w-3 h-3" />
             </Link>
           </div>
           <div className="space-y-2">
@@ -171,16 +171,16 @@ export default function AgentDashboard() {
 
       {/* Tasks & Reminders */}
       {workItems.length > 0 && (
-        <div className="card p-5">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <ClipboardList className="w-4 h-4 text-brand-600" />
+        <div className="card p-4 sm:p-5">
+          <div className="flex items-center justify-between mb-3 gap-2">
+            <div className="flex items-center gap-2 min-w-0 flex-wrap">
+              <ClipboardList className="w-4 h-4 text-brand-600 shrink-0" />
               <h3 className="font-semibold text-gray-900 text-sm">Tasks & Reminders</h3>
-              {urgentCount  > 0 && <span className="badge bg-red-100 text-red-700">{urgentCount} urgent</span>}
-              {overdueCount > 0 && <span className="badge bg-orange-100 text-orange-700">{overdueCount} overdue</span>}
+              {urgentCount  > 0 && <span className="badge bg-red-100 text-red-700 shrink-0">{urgentCount} urgent</span>}
+              {overdueCount > 0 && <span className="badge bg-orange-100 text-orange-700 shrink-0">{overdueCount} overdue</span>}
             </div>
-            <Link to="/tasks" className="text-xs text-brand-600 hover:underline flex items-center gap-1">
-              View all <ArrowRight className="w-3 h-3" />
+            <Link to="/tasks" className="text-xs text-brand-600 hover:underline flex items-center gap-1 shrink-0">
+              All <ArrowRight className="w-3 h-3" />
             </Link>
           </div>
           <div className="space-y-2">
