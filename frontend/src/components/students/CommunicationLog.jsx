@@ -93,7 +93,7 @@ export default function CommunicationLog({ student, onUpdate }) {
               {isFounder && (
                 <button
                   onClick={() => handleDelete(c._id)}
-                  className="opacity-0 group-hover:opacity-100 text-gray-300 hover:text-red-500 transition-all shrink-0 mt-0.5"
+                  className="sm:opacity-0 sm:group-hover:opacity-100 text-gray-300 hover:text-red-500 transition-all shrink-0 mt-0.5"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>

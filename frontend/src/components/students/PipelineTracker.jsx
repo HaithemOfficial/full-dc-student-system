@@ -165,7 +165,7 @@ export default function PipelineTracker({ student, onUpdate }) {
               : <GraduationCap className={`w-3 h-3 ${studentPhase === 'uni_acceptance' ? 'text-white' : 'text-gray-400'}`} />
             }
           </div>
-          <span className="text-xs font-bold">University Acceptance</span>
+          <span className="text-xs font-bold"><span className="sm:hidden">University</span><span className="hidden sm:inline">University Acceptance</span></span>
           <div className="ml-auto">
             {isUniPhaseDone
               ? <span className="badge bg-green-100 text-green-700 text-xs">Done</span>
@@ -191,7 +191,7 @@ export default function PipelineTracker({ student, onUpdate }) {
           }`}>
             <FileCheck className={`w-3 h-3 ${studentPhase === 'visa' ? 'text-white' : 'text-gray-400'}`} />
           </div>
-          <span className="text-xs font-bold">Visa Process</span>
+          <span className="text-xs font-bold"><span className="sm:hidden">Visa</span><span className="hidden sm:inline">Visa Process</span></span>
           {studentPhase === 'visa' && (
             <span className="ml-auto badge bg-orange-100 text-orange-700 text-xs">Active</span>
           )}
@@ -249,7 +249,7 @@ export default function PipelineTracker({ student, onUpdate }) {
           {/* ── Selected stage detail + checklist ── */}
           {selectedStage && (
             <div className={`border-t ${isVisa ? 'border-orange-100' : 'border-brand-100'} px-4 py-4 space-y-3`}>
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
                 <div className="flex items-center gap-2 flex-wrap">
                   <h3 className="font-semibold text-gray-900">{selectedStage.name}</h3>
                   {isCurrentSelected
@@ -266,7 +266,7 @@ export default function PipelineTracker({ student, onUpdate }) {
                     <span className="text-[10px] text-gray-400">{openCount}/2 open</span>
                   )}
                 </div>
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-2 flex-wrap">
                   {!isCurrentSelected && selectedIdx > currentIdx && (
                     (() => {
                       if (selectedStage.alwaysOpen) {

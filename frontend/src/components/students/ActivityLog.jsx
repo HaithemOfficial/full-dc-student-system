@@ -32,7 +32,7 @@ export default function ActivityLog({ student }) {
           {pageLogs.map((log, i) => (
             <div key={i} className="relative">
               <div className="absolute -left-4 top-1.5 w-2.5 h-2.5 rounded-full bg-brand-200 border-2 border-white" />
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex items-start justify-between gap-2 sm:gap-4">
                 <div>
                   <p className="text-sm font-medium text-gray-800">{log.action}</p>
                   {log.details && <p className="text-xs text-gray-500 mt-0.5">{log.details}</p>}

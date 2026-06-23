@@ -59,7 +59,7 @@ function DocumentRow({ def, statusEntry, studentId, onUpdate, badgeColor, status
           {def._phaseIdx + 1}
         </span>
         <span className="flex-1 font-medium text-gray-800 text-sm">{def.name}</span>
-        {agentNotes && <span className="text-xs text-gray-400 truncate max-w-[120px]">{agentNotes}</span>}
+        {agentNotes && <span className="hidden sm:inline text-xs text-gray-400 truncate max-w-[120px]">{agentNotes}</span>}
         <span className={`badge ${statusMeta.color} shrink-0`}>{statusMeta.label}</span>
         {open
           ? <ChevronDown className="w-4 h-4 text-gray-400 shrink-0" />
