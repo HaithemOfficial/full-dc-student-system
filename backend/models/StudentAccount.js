@@ -10,6 +10,7 @@ const studentAccountSchema = new mongoose.Schema({
   celebrationPending:   { type: Boolean, default: false },
   onboardingCompleted:  { type: Boolean, default: false },
   knownDeviceIds:       [{ type: String }],
+  pushSubscription:     { type: Object, default: null },
 }, { timestamps: true });
 
 studentAccountSchema.pre('save', async function (next) {

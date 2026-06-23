@@ -699,3 +699,19 @@ exports.checkDevice = async (req, res) => {
 
   res.json({ ok: true, known: false });
 };
+
+exports.savePushSubscription = async (req, res) => {
+  const { subscription } = req.body;
+  if (!subscription || typeof subscription !== 'object') {
+    return res.status(400).json({ message: 'Invalid subscription' });
+  }
+  const StudentAccount = require('../models/StudentAccount');
+  await StudentAccount.findByIdAndUpdate(req.studentAccount._id, { pushSubscription: subscription });
+  res.json({ success: true });
+};
+
+exports.deletePushSubscription = async (req, res) => {
+  const StudentAccount = require('../models/StudentAccount');
+  await StudentAccount.findByIdAndUpdate(req.studentAccount._id, { $unset: { pushSubscription: 1 } });
+  res.json({ success: true });
+};

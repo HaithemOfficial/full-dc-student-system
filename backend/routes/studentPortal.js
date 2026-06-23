@@ -26,6 +26,8 @@ router.post('/me/complete-onboarding', wrap(c.completeOnboarding));
 router.get('/me/referral', wrap(c.getReferral));
 router.get('/me/onboarding-slides', wrap(c.getOnboardingSlides));
 router.get('/me/useful-links',      wrap(c.getUsefulLinks));
-router.post('/me/check-device',     wrap(c.checkDevice));
+router.post('/me/check-device',          wrap(c.checkDevice));
+router.post('/me/push-subscription',     wrap(c.savePushSubscription));
+router.delete('/me/push-subscription',   wrap(c.deletePushSubscription));
 
 module.exports = router;

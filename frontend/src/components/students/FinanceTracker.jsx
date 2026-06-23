@@ -93,7 +93,7 @@ export default function FinanceTracker({ student, onUpdate }) {
     <div className="space-y-4">
       {/* Summary */}
       <div className="card p-5 space-y-4">
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           <div>
             <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Service Amount</p>
             <p className="text-xl font-bold text-gray-900">{formatCurrency(student.serviceAmount)}</p>
@@ -196,54 +196,91 @@ export default function FinanceTracker({ student, onUpdate }) {
           <p className="text-sm text-gray-400">No payments recorded yet</p>
         </div>
       ) : (
-        <div className="card overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b border-gray-100">
-              <tr className="text-left text-xs text-gray-400 uppercase tracking-wider">
-                <th className="px-5 py-3">Amount</th>
-                <th className="px-5 py-3">Category</th>
-                <th className="px-5 py-3">Date</th>
-                <th className="px-5 py-3">Method</th>
-                <th className="px-5 py-3">Recorded By</th>
-                <th className="px-5 py-3">Notes</th>
-                <th className="px-5 py-3"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-50">
-              {[...student.payments].reverse().map(p => {
-                const cat = p.category ? getCatMeta(p.category) : null;
-                const colorCls = cat ? (CATEGORY_COLORS[cat.color] || CATEGORY_COLORS.gray) : null;
-                return (
-                  <tr key={p._id} className="hover:bg-gray-50">
-                    <td className="px-5 py-3.5 font-semibold text-green-600">{formatCurrency(p.amount)}</td>
-                    <td className="px-5 py-3.5">
-                      {p.category
-                        ? <span className={`badge ${colorCls} text-xs`}>{p.category}</span>
-                        : <span className="text-gray-300">—</span>
-                      }
-                    </td>
-                    <td className="px-5 py-3.5 text-gray-600">{formatDate(p.date)}</td>
-                    <td className="px-5 py-3.5 capitalize text-gray-500">{p.method?.replace('_', ' ')}</td>
-                    <td className="px-5 py-3.5 text-gray-500">{p.recordedByName || '—'}</td>
-                    <td className="px-5 py-3.5 text-gray-400">{p.notes || '—'}</td>
-                    <td className="px-5 py-3.5">
-                      <div className="flex items-center gap-2">
-                        <button onClick={() => openEdit(p)} className="text-gray-300 hover:text-brand-500 transition-colors" title="Edit">
-                          <Pencil className="w-4 h-4" />
-                        </button>
-                        {isFounder && (
-                          <button onClick={() => handleDelete(p._id)} className="text-gray-300 hover:text-red-500 transition-colors" title="Delete">
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        )}
+        <>
+          {/* Mobile cards */}
+          <div className="sm:hidden space-y-2">
+            {[...student.payments].reverse().map(p => {
+              const cat = p.category ? getCatMeta(p.category) : null;
+              const colorCls = cat ? (CATEGORY_COLORS[cat.color] || CATEGORY_COLORS.gray) : null;
+              return (
+                <div key={p._id} className="card p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-green-600 text-base">{formatCurrency(p.amount)}</p>
+                      <div className="flex flex-wrap items-center gap-2 mt-1">
+                        {p.category && <span className={`badge text-xs ${colorCls}`}>{p.category}</span>}
+                        <span className="text-xs text-gray-400">{formatDate(p.date)}</span>
+                        <span className="text-xs text-gray-400 capitalize">{p.method?.replace('_', ' ')}</span>
                       </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                      {p.notes && <p className="text-xs text-gray-400 mt-1 truncate">{p.notes}</p>}
+                      {p.recordedByName && <p className="text-xs text-gray-300 mt-0.5">By {p.recordedByName}</p>}
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <button onClick={() => openEdit(p)} className="p-1.5 text-gray-300 hover:text-brand-500 transition-colors">
+                        <Pencil className="w-4 h-4" />
+                      </button>
+                      {isFounder && (
+                        <button onClick={() => handleDelete(p._id)} className="p-1.5 text-gray-300 hover:text-red-500 transition-colors">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop table */}
+          <div className="hidden sm:block card overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className="bg-gray-50 border-b border-gray-100">
+                <tr className="text-left text-xs text-gray-400 uppercase tracking-wider">
+                  <th className="px-5 py-3">Amount</th>
+                  <th className="px-5 py-3">Category</th>
+                  <th className="px-5 py-3">Date</th>
+                  <th className="px-5 py-3">Method</th>
+                  <th className="px-5 py-3">Recorded By</th>
+                  <th className="px-5 py-3">Notes</th>
+                  <th className="px-5 py-3"></th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-50">
+                {[...student.payments].reverse().map(p => {
+                  const cat = p.category ? getCatMeta(p.category) : null;
+                  const colorCls = cat ? (CATEGORY_COLORS[cat.color] || CATEGORY_COLORS.gray) : null;
+                  return (
+                    <tr key={p._id} className="hover:bg-gray-50">
+                      <td className="px-5 py-3.5 font-semibold text-green-600">{formatCurrency(p.amount)}</td>
+                      <td className="px-5 py-3.5">
+                        {p.category
+                          ? <span className={`badge ${colorCls} text-xs`}>{p.category}</span>
+                          : <span className="text-gray-300">—</span>
+                        }
+                      </td>
+                      <td className="px-5 py-3.5 text-gray-600">{formatDate(p.date)}</td>
+                      <td className="px-5 py-3.5 capitalize text-gray-500">{p.method?.replace('_', ' ')}</td>
+                      <td className="px-5 py-3.5 text-gray-500">{p.recordedByName || '—'}</td>
+                      <td className="px-5 py-3.5 text-gray-400">{p.notes || '—'}</td>
+                      <td className="px-5 py-3.5">
+                        <div className="flex items-center gap-2">
+                          <button onClick={() => openEdit(p)} className="text-gray-300 hover:text-brand-500 transition-colors" title="Edit">
+                            <Pencil className="w-4 h-4" />
+                          </button>
+                          {isFounder && (
+                            <button onClick={() => handleDelete(p._id)} className="text-gray-300 hover:text-red-500 transition-colors" title="Delete">
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );

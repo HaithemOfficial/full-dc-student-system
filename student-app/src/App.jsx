@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import api from './utils/api';
+import { usePushSubscription, requestPushPermission, dismissPushPrompt, shouldShowPushPrompt } from './hooks/usePushSubscription';
 import Splash from './pages/Splash';
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -43,8 +44,27 @@ function MaintenanceScreen({ message }) {
   );
 }
 
+function PushBanner() {
+  const [show, setShow] = useState(false);
+  useEffect(() => { setShow(shouldShowPushPrompt()); }, []);
+  if (!show) return null;
+  return (
+    <div className="flex items-center gap-3 bg-brand-600 text-white px-4 py-2.5 text-sm shrink-0">
+      <span className="flex-1 text-xs">Enable notifications to get updates from your agent</span>
+      <button
+        onClick={async () => { setShow(false); await requestPushPermission(); }}
+        className="text-xs font-semibold bg-white text-brand-700 px-3 py-1 rounded-full shrink-0"
+      >
+        Enable
+      </button>
+      <button onClick={() => { setShow(false); dismissPushPrompt(); }} className="text-white/70 text-lg leading-none">×</button>
+    </div>
+  );
+}
+
 function ProtectedLayout() {
   const { student } = useAuth();
+  usePushSubscription();
   const [maintenance, setMaintenance] = useState(() => {
     try { return JSON.parse(localStorage.getItem('dc_maintenance')) || { enabled: false }; }
     catch { return { enabled: false }; }
@@ -77,6 +97,7 @@ function ProtectedLayout() {
     <div className="min-h-dvh flex flex-col bg-gray-50">
       <TopBar />
       <main className="flex-1 overflow-y-auto pt-14 pb-28">
+        <PushBanner />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/progress" element={<ContentGuard><Progress /></ContentGuard>} />
